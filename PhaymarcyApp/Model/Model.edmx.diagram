@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="872508b273bb43ee9bdf556936d67ae4" Name="Diagram1">
+        <EntityTypeShape EntityType="PhaymarcyDbModel.Firm" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhaymarcyDbModel.Medicine_To_Tag" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhaymarcyDbModel.Medicine" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhaymarcyDbModel.Order" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhaymarcyDbModel.Role" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhaymarcyDbModel.sysdiagram" Width="1.5" PointX="5.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhaymarcyDbModel.Tag" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhaymarcyDbModel.Worker" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="PhaymarcyDbModel.FK_Medicines_Firms" ManuallyRouted="false" />
+        <AssociationConnector Association="PhaymarcyDbModel.FK_Medicine_To_Tag_Medicines" ManuallyRouted="false" />
+        <AssociationConnector Association="PhaymarcyDbModel.FK_Medicine_To_Tag_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="PhaymarcyDbModel.FK_Orders_Medicines" ManuallyRouted="false" />
+        <AssociationConnector Association="PhaymarcyDbModel.FK_Orders_Workers" ManuallyRouted="false" />
+        <AssociationConnector Association="PhaymarcyDbModel.FK_Workers_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

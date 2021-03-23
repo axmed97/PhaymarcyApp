@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PhaymarcyDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Firms">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Firm Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medicine_To_Tag">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MedicineId" Type="int" Nullable="false" />
+    <Property Name="TagId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medicines">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Medicine Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="IsReceipt" Type="bit" Nullable="false" />
+    <Property Name="Production Date" Type="date" Nullable="false" />
+    <Property Name="Experience Date" Type="date" Nullable="false" />
+    <Property Name="Barcode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirmId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WorkerId" Type="int" Nullable="false" />
+    <Property Name="MedicineId" Type="int" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Purchase Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tags">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tag Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Workers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fullname" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Medicine_To_Tag_Medicines">
+    <End Role="Medicines" Type="Self.Medicines" Multiplicity="1" />
+    <End Role="Medicine_To_Tag" Type="Self.Medicine_To_Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicines">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Medicine_To_Tag">
+        <PropertyRef Name="MedicineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Medicine_To_Tag_Tags">
+    <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+    <End Role="Medicine_To_Tag" Type="Self.Medicine_To_Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Medicine_To_Tag">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Medicines_Firms">
+    <End Role="Firms" Type="Self.Firms" Multiplicity="1" />
+    <End Role="Medicines" Type="Self.Medicines" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Firms">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Medicines">
+        <PropertyRef Name="FirmId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Medicines">
+    <End Role="Medicines" Type="Self.Medicines" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicines">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="MedicineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Workers">
+    <End Role="Workers" Type="Self.Workers" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Workers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="WorkerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Workers_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Workers" Type="Self.Workers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Workers">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PhaymarcyDbModelStoreContainer">
+    <EntitySet Name="Firms" EntityType="Self.Firms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medicine_To_Tag" EntityType="Self.Medicine_To_Tag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medicines" EntityType="Self.Medicines" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Workers" EntityType="Self.Workers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Medicine_To_Tag_Medicines" Association="Self.FK_Medicine_To_Tag_Medicines">
+      <End Role="Medicines" EntitySet="Medicines" />
+      <End Role="Medicine_To_Tag" EntitySet="Medicine_To_Tag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Medicine_To_Tag_Tags" Association="Self.FK_Medicine_To_Tag_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Medicine_To_Tag" EntitySet="Medicine_To_Tag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Medicines_Firms" Association="Self.FK_Medicines_Firms">
+      <End Role="Firms" EntitySet="Firms" />
+      <End Role="Medicines" EntitySet="Medicines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Medicines" Association="Self.FK_Orders_Medicines">
+      <End Role="Medicines" EntitySet="Medicines" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Workers" Association="Self.FK_Orders_Workers">
+      <End Role="Workers" EntitySet="Workers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Workers_Roles" Association="Self.FK_Workers_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Workers" EntitySet="Workers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
